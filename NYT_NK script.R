@@ -2,9 +2,9 @@ library(tidyverse)
 library(ggrepel)
 library(stringr)
 library(scales)
-install.packages("cowplot")
 library(cowplot)
 library(gridExtra)
+
 set.seed(1234)
 
 theme_set(theme_bw())
@@ -52,10 +52,11 @@ scatter_plot <- df %>%
                      labels=percent) +
   scale_size_continuous(name = "Absolute Differential\n(Could Find - Could Not Find)",
                         labels = percent) +
-  labs(x = "Could Find North Korea",
+  labs(x = paste0("Could Find North Korea\n", net_suport_label),
        y = "Could Not Find North Korea",
        title = "Comparing net support for policies toward North Korea",
-       subtitle = my_subtitle) +
+       subtitle = my_subtitle,
+       caption = my_caption) +
   theme(plot.caption = element_text(hjust = 1))
 scatter_plot
 ggsave("NYT_scatter_plot.png", width = 12, height = 12)
@@ -71,11 +72,16 @@ dot_plot <- df %>%
              shape = 21, 
              stroke = 2,
              show.legend = FALSE) +
+  geom_label_repel(aes(label = proposed_action_formatted),
+                   force = 35,
+                   angle = 90,
+                   max.iter = 10^3) +
   scale_x_continuous(labels=percent) +
   scale_y_discrete(labels = c("Could find North Korea", "Could not find North Korea")) +
   labs(x = paste0("Net support\n", net_suport_label),
        y = NULL,
        title = "Comparing distributions of net support",
+       subtitle = my_subtitle,
        caption = my_caption)
 dot_plot
 ggsave("NYT_dot_plot.png", width = 12, height = 12)
