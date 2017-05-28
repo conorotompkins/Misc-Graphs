@@ -14,7 +14,7 @@ theme_set(theme_bw())
 #load data from NYT article https://nyti.ms/2rfMEBD
 df <- tibble(proposed_action = c("Economic sanctions",
                                  "Increase pressure on China",
-                                 "Cyberatacks against military targets",
+                                 "Cyberattacks against military targets",
                                  "Military action",
                                  "Conducting airstrikes",
                                  "Sending arms and supplies",
@@ -55,11 +55,11 @@ scatter_plot <- df %>%
                      breaks = seq(-.50, .50, 
                                   by = .25),
                      labels=percent) +
-  scale_size_continuous(name = "Absolute Difference\n(Could Find - Could Not Find)",
+  scale_size_continuous(name = "Absolute difference\n(Could Find - Could Not Find)",
                         labels = percent) +
   labs(x = paste0("Could Find North Korea\n", net_suport_label),
        y = "Could Not Find North Korea",
-       title = "Comparing net support for policies toward North Korea",
+       title = "Comparing net support for policies towards North Korea",
        subtitle = my_subtitle,
        caption = my_caption) +
   theme(plot.caption = element_text(hjust = 1))
@@ -89,7 +89,6 @@ dot_plot <- df %>%
        caption = my_caption)
 dot_plot
 ggsave("NYT_dot_plot.png", width = 12, height = 12)
-
 
 #attempt to arrange both plots in one image
 #gridExtra
